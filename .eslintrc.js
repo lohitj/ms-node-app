@@ -17,6 +17,6 @@ module.exports = {
         "semi": 1,
         "no-unused-vars":1,
         "no-console":0,
-        "quotes": ["error", "double"]
+        "quotes": ["warn", "double"]
     }
 };
