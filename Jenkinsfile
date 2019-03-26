@@ -14,7 +14,7 @@ node {
    
    
    stage("Code Quality"){
-        sh 'npm run lint'
+        sh 'npm run lint' // .eslint should be changed 
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'quality.html', reportName: 'Quality Report', reportTitles: ''])
         sh 'npm run lint-console'
    }
