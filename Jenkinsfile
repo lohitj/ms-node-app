@@ -9,6 +9,7 @@ node {
    
    stage("Install Dependencies"){
         sh 'npm install'
+        sh 'npm i nyc -g'
    }
    
    
@@ -25,7 +26,7 @@ node {
    }
    
     stage("Code Coverage"){
-        sh 'npm run coverage'
+        sh 'nyc --check-coverage --functions 0 npm test'
         //publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Coverage Report', reportTitles: ''])
    }
 
