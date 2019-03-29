@@ -160,13 +160,9 @@ node
 	   deployApp("${APP_NAME}-test", "${MS_NAME}")
    }
    stage('Functional Testing'){
-   	sh 'node functional/functional_test.js'
+   	sh 'npm run functional'
    }
-	
-    stage('Security Testing')
-    {
-        sh 'mvn findbugs:findbugs'
-    }	
+		
 
     stage('Tagging Image for Testing')
     {
