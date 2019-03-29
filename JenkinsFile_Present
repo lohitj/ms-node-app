@@ -159,17 +159,9 @@ node
 	   firstTimeDevDeployment(env.envor[env.size-2], "${MS_NAME}")
 	   deployApp("${APP_NAME}-test", "${MS_NAME}")
    }
-   /*node('selenium')
-   {
-	stage('Integration Testing')
-	{
-	    container('jnlp')
-	    {
-	         checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_SOURCE_URL}"]]])
-		 sh 'mvn integration-test'
-	    }
-	 }
-    }*/
+   stage('Functional Testing'){
+   	sh 'node functional/functional_test.js'
+   }
 	
     stage('Security Testing')
     {
