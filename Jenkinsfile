@@ -114,7 +114,7 @@ node{
   
             if(env.CODE_COVERAGE == 'True'){
                 stage("Code Coverage"){
-				sh 'nyc npm test'
+				sh 'nyc npm test' // all gating in package.json
 			}
             }
    
@@ -145,7 +145,7 @@ node{
 
    if(env.FUNCTIONAL_TESTING == 'True'){
         stage('Functional Testing'){
-			sh 'npm run functional'
+			sh 'npm run functional' //Follow this tutorial https://docs.cucumber.io/guides/10-minute-tutorial/
    		}
    }
    
