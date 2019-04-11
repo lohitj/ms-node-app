@@ -1,7 +1,7 @@
 APP_NAME: 'node-demo'
 MS_NAME: 'sample-node-app'
 BRANCH: 'master'
-GIT_SOURCE_URL: 'https://github.com/lohitj/sample-angular-app.git'
+GIT_SOURCE_URL: 'https://github.com/lohitj/ms-node-app.git'
 GIT_CREDENTIALS: 'abcdefghihjklmn'
 CODE_QUALITY: 'True'
 UNIT_TESTING: 'True'
