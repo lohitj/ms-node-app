@@ -110,7 +110,6 @@ node{
    stage("Install Dependencies"){
         sh 'npm install'
         sh 'npm i nyc -g'
-	sh 'npm install -g nsp nsp-reporter-checkstyle'
    }
    
             if(env.UNIT_TESTING == 'True'){
