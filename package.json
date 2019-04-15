@@ -9,40 +9,12 @@
     "test": "istanbul cover node_modules/.bin/_mocha -- test/*_test.js test/api/*_test.js",
     "coverage": "istanbul cover --report cobertura node_modules/.bin/_mocha -- test/*_test.js test/api/*_test.js && mocha test/*_test.js test/api/*_test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/test-results.xml",
     "start": "node server.js",
-    "functional" : "cucumber-js"
+    "functional" : "cucumber-js",
+    "gating" : "check-coverage --lines 10 --functions 10 --branches 10"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/weaveworks/microservices-demo"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 10,
-    "statements": 10,
-    "functions": 10,
-    "branches": 10,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "src/**/*.spec.js"
-    ],
-    "ignore-class-method": "methodToIgnore",
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "require": [
-      "./test/helpers/some-helper.js"
-    ],
-    "extension": [
-      ".jsx"
-    ],
-    "cache": true,
-    "all": true,
-    "temp-dir": "./alternative-tmp",
-    "report-dir": "./alternative"
   },
   "contributors": [
     "Ian Crosby <ian.daniel.crosby@gmail.com>",
