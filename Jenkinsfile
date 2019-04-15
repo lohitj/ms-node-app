@@ -12,6 +12,7 @@ def readProperties(){
     env.CODE_COVERAGE = property.CODE_COVERAGE
     env.FUNCTIONAL_TESTING = property.FUNCTIONAL_TESTING
     env.LOAD_TESTING = property.LOAD_TESTING
+    env.SECURITY_TESTING = property.SECURITY_TESTING
     env.LINE = property.LINE
     env.FUNCTION = property.FUNCTION
     env.BRANCHES = property.BRANCHES
