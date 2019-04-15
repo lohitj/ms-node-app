@@ -110,7 +110,6 @@ node{
    stage("Install Dependencies"){
         sh 'npm install npm -g'
         sh 'npm i nyc -g'
-	   sh 'npm install -g snyk'
    }
    
             if(env.UNIT_TESTING == 'True'){
