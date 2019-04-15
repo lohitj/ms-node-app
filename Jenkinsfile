@@ -110,6 +110,7 @@ node{
    stage("Install Dependencies"){
         sh 'npm install'
         sh 'npm i nyc -g'
+	   sh 'npm install -g snyk'
    }
    
             if(env.UNIT_TESTING == 'True'){
@@ -132,7 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-				sh 'npm audit'
+				sh 'snyk test'
 			}
             }
         
