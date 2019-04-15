@@ -133,6 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
+			    sh 'synk auth'
 				sh 'snyk test'
 			}
             }
