@@ -1,5 +1,5 @@
 def readProperties(){
-	def properties_file_path = "${workspace}" + "/properties.yml"
+	def properties_file_path = "${workspace}" + "@script/properties.yml"
 	def property = readYaml file: properties_file_path
 
     env.APP_NAME = property.APP_NAME
@@ -98,7 +98,7 @@ node{
    
    stage('Checkout'){
 	   readProperties()
-       checkout([$class: 'GitSCM', branches: [[name: "*/${BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${GIT_CREDENTIALS}", url: "${GIT_SOURCE_URL}"]]])
+       checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
        env.WORKSPACE = "${workspace}"
    }
   
