@@ -114,11 +114,11 @@ node{
 				}
             }
   
-            /*if(env.CODE_COVERAGE == 'True'){
+            if(env.CODE_COVERAGE == 'True'){
                 stage("Code Coverage"){
 				sh 'nyc --check-coverage --lines 100 npm test' // all gating in package.json
 			}
-            }*/
+            }
    
             if(env.CODE_QUALITY == 'True'){
                    stage("Code Quality"){
