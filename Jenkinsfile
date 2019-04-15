@@ -133,7 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-				sh 'nsp check --reporter table'
+				sh 'npm audit'
 			}
             }
         
