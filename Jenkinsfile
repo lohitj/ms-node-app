@@ -109,6 +109,7 @@ node{
    stage("Install Dependencies"){
         sh 'npm install'
         sh 'npm i nyc -g'
+	sh 'npm install -g nsp nsp-reporter-checkstyle'
    }
    
             if(env.UNIT_TESTING == 'True'){
@@ -127,6 +128,11 @@ node{
                    stage("Code Quality"){
 				sh 'npm run lint' // .eslint should be changed 
 				sh 'npm run lint-console'
+			}
+            }
+	if(env.SECURITY_TESTING == 'True'){
+                   stage("Security Testing"){
+				sh 'nsp check --reporter table'
 			}
             }
         
