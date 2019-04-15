@@ -15,35 +15,6 @@
     "type": "git",
     "url": "https://github.com/weaveworks/microservices-demo"
   },
-  "nyc": {
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 99,
-    "statements": 99,
-    "functions": 99,
-    "branches": 99,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "src/**/*.spec.js"
-    ],
-    "ignore-class-method": "methodToIgnore",
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "require": [
-      "./test/helpers/some-helper.js"
-    ],
-    "extension": [
-      ".jsx"
-    ],
-    "cache": true,
-    "all": true,
-    "temp-dir": "./alternative-tmp",
-    "report-dir": "./alternative"
-  },
   "contributors": [
     "Ian Crosby <ian.daniel.crosby@gmail.com>",
     "Carlos León <mail@carlosleon.info> (carlosleon.info)"
