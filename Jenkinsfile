@@ -12,6 +12,9 @@ def readProperties(){
     env.CODE_COVERAGE = property.CODE_COVERAGE
     env.FUNCTIONAL_TESTING = property.FUNCTIONAL_TESTING
     env.LOAD_TESTING = property.LOAD_TESTING
+    env.LINE = property.LINE
+    env.FUNCTION = property.FUNCTION
+    env.BRANCHES = property.BRANCHES
 }
 
 def devDeployment(projectName,msName){
@@ -116,7 +119,7 @@ node{
   
             if(env.CODE_COVERAGE == 'True'){
                 stage("Code Coverage"){
-				sh 'nyc gating npm test' // all gating in package.json
+			sh 'nyc check-coverage --lines ${LINE} --functions ${FUNCTION} --branches ${BRANCHES} npm test' // all gating in package.json
 			}
             }
    
