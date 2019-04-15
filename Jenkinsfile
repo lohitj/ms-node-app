@@ -97,9 +97,10 @@ node{
    env.PATH="${env.PATH}:${NODEJS_HOME}/bin"
    
    stage('Checkout'){
-	   readProperties()
+	   
        checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
        env.WORKSPACE = "${workspace}"
+	readProperties()
    }
   
    stage("Install Dependencies"){
