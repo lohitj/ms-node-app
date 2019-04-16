@@ -111,7 +111,7 @@ node{
         sh 'npm install npm -g'
         sh 'npm i nyc -g'
 	sh 'npm install -g snyk'
-	sh 'yarn install'
+	sh 'yarn install -g'
    }
    
             if(env.UNIT_TESTING == 'True'){
