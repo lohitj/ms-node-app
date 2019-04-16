@@ -133,7 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			    sh 'snyk auth'
+			    sh 'snyk auth 47b56a1c-89bf-4922-aaba-828a80197c06'
 			   sh 'snyk test'
 			}
             }
