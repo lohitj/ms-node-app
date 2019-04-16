@@ -132,7 +132,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			   sh 'npm audit --parseable | awk -F $'\t' '{print $1,$4}''
+			   sh 'npm audit --parseable'
 			}
             }
         
