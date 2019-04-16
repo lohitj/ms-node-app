@@ -132,7 +132,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			    sh 'npm audit'
+			    sh 'npm audit --parseable'
 			}
             }
         
