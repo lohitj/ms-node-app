@@ -15,6 +15,7 @@ def readProperties(){
     env.SECURITY_TESTING = property.SECURITY_TESTING
     env.LINE = property.LINE
     env.FUNCTION = property.FUNCTION
+    env.SECURITY_GATING = property.SECURITY_GATING
     env.BRANCHES = property.BRANCHES
 }
 
@@ -132,7 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			   sh ''' npm audit --parseable | awk -F $'\\t' '{count++; if (count > 4) exit 1}  END{print count}' '''
+			   sh ''' npm audit --parseable | awk -F $'\\t' '{count++; if (count > ${SECURITY_GATING}) exit 1}  END{print count}' '''
 			}
             }
         
