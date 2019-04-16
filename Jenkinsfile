@@ -132,7 +132,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			   sh ''' npm audit --parseable | awk -F $'\\t' '{count++; if (count == 0) print count}  END{print count}' '''
+			   sh ''' npm audit --parseable | awk -F $'\\t' '{count++; if (count == 0) printf "%d is even number.\n", count}  END{print count}' '''
 			}
             }
         
