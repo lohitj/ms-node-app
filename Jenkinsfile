@@ -86,17 +86,6 @@ def deployApp(projectName,msName){
         }
     }
 }
-
-
-podTemplate(cloud:'openshift',label: 'selenium', 
-  containers: [
-    containerTemplate(
-      name: 'jnlp',
-      image: 'cloudbees/jnlp-slave-with-java-build-tools',
-      alwaysPullImage: true,
-      args: '${computer.jnlpmac} ${computer.name}'
-    )])
-{
 node{
    def NODEJS_HOME = tool "NODE_PATH"
    env.PATH="${env.PATH}:${NODEJS_HOME}/bin"
@@ -174,5 +163,4 @@ node{
         prodDeployment("${APP_NAME}-dev", "${APP_NAME}-prod", "${MS_NAME}")
    }	
   
-}
 }
