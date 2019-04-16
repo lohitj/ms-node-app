@@ -133,7 +133,7 @@ node{
             }
 	if(env.SECURITY_TESTING == 'True'){
                    stage("Security Testing"){
-			   sh ''' npm audit --parseable | awk -F $'\\t' '{count++; if (count -ge '${SECURITY_GATING}') exit 1}  END{print ${SECURITY_GATING}}' '''
+			   sh ''' npm audit --parseable | awk -F $'\\t' 'BEGIN {count = 0; if (count > '${SECURITY_GATING}') exit 1; else count++}  END{print count}' '''
 			}
             }
         
