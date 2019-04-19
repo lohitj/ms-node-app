@@ -98,7 +98,7 @@ node{
    }
   
    stage("Install Dependencies"){
-        sh 'npm install npm -g'
+        sh 'npm install -g'
 	   sh' npm install -g istanbul'
         sh 'npm i nyc -g'
    }
