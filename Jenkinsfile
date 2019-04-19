@@ -111,7 +111,7 @@ node{
   
             if(env.CODE_COVERAGE == 'True'){
                 stage("Code Coverage"){
-			sh 'nyc check-coverage --lines ${LINE} --functions ${FUNCTION} --branches ${BRANCHES} npm test' // all gating in package.json
+			sh 'nyc --check-coverage --lines ${LINE} --functions ${FUNCTION} --branches ${BRANCHES} npm test' // all gating in package.json
 			}
             }
    
