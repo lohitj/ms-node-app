@@ -101,6 +101,7 @@ node{
         sh 'npm install -g'
 	   sh' npm install -g istanbul'
         sh 'npm i nyc -g'
+	   sh'npm i --package-lock-only'
    }
    
             if(env.UNIT_TESTING == 'True'){
