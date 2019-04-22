@@ -88,13 +88,16 @@ def deployApp(projectName,msName){
 }
 node{
    def NODEJS_HOME = tool "NODE_PATH"
+   def DOCKER = tool "DOCKER"
    env.PATH="${env.PATH}:${NODEJS_HOME}/bin"
+   env.PATH = "${env.PATH}:${DOCKER}/bin"
    
    stage('Checkout'){
 	   
        checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
        env.WORKSPACE = "${workspace}"
 	readProperties()
+	sh 'docker build '
    }
   
    stage("Install Dependencies"){
