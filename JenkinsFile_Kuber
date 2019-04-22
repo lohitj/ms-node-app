@@ -133,10 +133,10 @@ node{
     
    
   stage('Docker Image'){
-    sh 'docker build -t NODE_APPLICATION .'
+    sh 'docker build -t ${BUILD_NUMBER} .'
   }
   stage('Docker Image Push'){
-    sh 'docker push NODE_APPLICATION:latest'
+    sh 'docker push ${BUILD_NUMBER}:latest'
   }
 
    stage('Dev - Deploy Application'){
