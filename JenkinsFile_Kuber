@@ -97,7 +97,6 @@ node{
        checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
        env.WORKSPACE = "${workspace}"
 	readProperties()
-	sh 'sudo status docker'
    }
   
    stage("Install Dependencies"){
