@@ -151,7 +151,6 @@ node{
             """
         }
       }
-    }
 
    stage('Dev - Deploy Application'){
         devDeployment("${APP_NAME}-dev", "${MS_NAME}")
