@@ -86,6 +86,16 @@ def deployApp(projectName,msName){
         }
     }
 }
+def label = "worker-${UUID.randomUUID().toString()}"
+
+podTemplate(label: label, containers: [
+  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:latest', command: 'cat', ttyEnabled: true)
+],
+volumes: [
+  hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
+])
 node{
    def NODEJS_HOME = tool "NODE_PATH"
    def DOCKER = tool "DOCKER"
@@ -132,12 +142,16 @@ node{
         
     
    
-  stage('Docker Image'){
-    sh 'docker build -t ${BUILD_NUMBER} .'
-  }
-  stage('Docker Image Push'){
-    sh 'docker push ${BUILD_NUMBER}:latest'
-  }
+ stage('Create Docker images') {
+      container('docker') {
+          sh """
+            docker login -u lohitjain -p lohitjain1996
+            docker build -t namespace/my-image:${gitCommit} .
+            docker push namespace/my-image:${gitCommit}
+            """
+        }
+      }
+    }
 
    stage('Dev - Deploy Application'){
         devDeployment("${APP_NAME}-dev", "${MS_NAME}")
