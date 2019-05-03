@@ -125,8 +125,8 @@ stage('Create Docker images')
 	{
           sh """
             docker login -u lohitjain -p lohitjain1996
-            docker build -t namespace/my-image:${gitCommit} .
-            docker push namespace/my-image:${gitCommit}
+            docker build -t lohitjain/dockerlohit:${gitCommit} .
+            docker push lohitjain/dockerlohit:${gitCommit}
             """
         }
 }
