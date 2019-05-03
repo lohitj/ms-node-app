@@ -18,74 +18,6 @@ def readProperties(){
     env.SECURITY_GATING = property.SECURITY_GATING
     env.BRANCHES = property.BRANCHES
 }
-
-def devDeployment(projectName,msName){
-    openshift.withCluster() {
-        openshift.withProject(projectName) {
-            openshiftDeploy(namespace: projectName,deploymentConfig: msName)
-        } 
-    }
-}
-
-
-def testDeployment(sourceProjectName,destinationProjectName,msName){
-    openshift.withCluster() {
-        openshift.withProject(destinationProjectName){
-	          def dcSelector = openshift.selector( "dc", msName)
-            def dcExists = dcSelector.exists()
-	          if(!dcExists){
-	    	      openshift.newApp(sourceProjectName+"/"+msName+":"+"test")   
-	          }
-            else {
-                openshiftDeploy(namespace: destinationProjectName,deploymentConfig: msName) 
-            } 
-        }
-    }
-}
-
-def prodDeployment(sourceProjectName,destinationProjectName,msName){
-    openshift.withCluster() {
-        openshift.withProject(destinationProjectName){
-	          def dcSelector = openshift.selector( "dc", msName)
-            def dcExists = dcSelector.exists()
-	          if(!dcExists){
-	    	        openshift.newApp(sourceProjectName+"/"+msName+":"+"prod")   
-	          }
-            else {
-                openshiftDeploy(namespace: destinationProjectName,deploymentConfig: msName)
-            } 
-        }
-    }
-}
-
-def buildApp(projectName,msName){
-    openshift.withCluster() {
-        openshift.withProject(projectName){
-            def bcSelector = openshift.selector( "bc", msName)
-            def bcExists = bcSelector.exists()
-	          if(!bcExists){
-	    	        openshift.newApp("${GIT_SOURCE_URL}","--strategy=docker")
-                def rm = openshift.selector("dc", msName).rollout()
-                timeout(15) { 
-                  openshift.selector("dc", msName).related('pods').untilEach(1) {
-                    return (it.object().status.phase == "Running")
-                  }
-                }  
-	          }
-            else {
-                openshift.startBuild(msName,"--wait")  
-            }    
-        }
-    }
-}
-
-def deployApp(projectName,msName){
-    openshift.withCluster() {
-        openshift.withProject(projectName){
-            openshiftDeploy(namespace: projectName,deploymentConfig: msName)
-        }
-    }
-}
 def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
@@ -98,9 +30,8 @@ volumes: [
 ])
 node{
    def NODEJS_HOME = tool "NODE_PATH"
-   def DOCKER = tool "DOCKER"
    env.PATH="${env.PATH}:${NODEJS_HOME}/bin"
-   env.PATH = "${env.PATH}:${DOCKER}/bin"
+
    
    stage('Checkout'){
 	   
