@@ -120,10 +120,7 @@ if(env.SECURITY_TESTING == 'True')
    
 stage('Create Docker images') 
 {
-  withCredentials([[$class: 'UsernamePasswordMultiBinding',
-                    credentialsId: 'lohitjain',
-                    usernameVariable: 'lohitjain',
-                    passwordVariable: 'lohitjain1996']]) {
+  
 	container('docker') 
 	{
           sh """
@@ -132,7 +129,6 @@ stage('Create Docker images')
             docker push namespace/my-image:${gitCommit}
             """
         }
-	}
 }
 
    stage('Dev - Deploy Application'){
