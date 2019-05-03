@@ -28,6 +28,7 @@ podTemplate(label: label, containers: [
 volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ])
+{
 node(label)
 {
    def NODEJS_HOME = tool "NODE_PATH"
@@ -123,4 +124,5 @@ node(label)
         prodDeployment("${APP_NAME}-dev", "${APP_NAME}-prod", "${MS_NAME}")
    }	
   
+}
 }
