@@ -32,7 +32,13 @@ volumes: [
 {
 node(label)
 {
+
    def NODEJS_HOME = tool "NODE_PATH"
+   def myRepo = checkout scm
+   def gitCommit = myRepo.GIT_COMMIT
+   def gitBranch = myRepo.GIT_BRANCH
+   def shortGitCommit = "${gitCommit[0..10]}"
+    def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
    env.PATH="${env.PATH}:${NODEJS_HOME}/bin"
 
    
@@ -58,6 +64,8 @@ node(label)
 		sh' npm install -g istanbul'
         	sh 'npm i nyc -g'
 		sh'npm i --package-lock-only'
+		echo "GIT_BRANCH=${gitBranch}" >> /etc/environment
+        echo "GIT_COMMIT=${gitCommit}" >> /etc/environment
 	 }
    }
    
