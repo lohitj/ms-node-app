@@ -40,6 +40,7 @@ node(label)
        checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
        env.WORKSPACE = "${workspace}"
 	readProperties()
+	sh 'npm install -g'
    }
   
    stage("Install Dependencies"){
