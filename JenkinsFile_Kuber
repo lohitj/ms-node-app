@@ -118,7 +118,12 @@ if(env.SECURITY_TESTING == 'True')
         
     
    
-stage('Create Docker images') {
+stage('Create Docker images') 
+{
+  withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_HUB_USER',
+                    passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
 	container('docker') 
 	{
           sh """
@@ -127,6 +132,7 @@ stage('Create Docker images') {
             docker push namespace/my-image:${gitCommit}
             """
         }
+	}
 }
 
    stage('Dev - Deploy Application'){
