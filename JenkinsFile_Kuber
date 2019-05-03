@@ -64,8 +64,11 @@ node(label)
 		sh' npm install -g istanbul'
         	sh 'npm i nyc -g'
 		sh'npm i --package-lock-only'
-		echo "GIT_BRANCH=${gitBranch}" >> /etc/environment
-        	echo "GIT_COMMIT=${gitCommit}" >> /etc/environment
+		sh """
+            	pwd
+            	echo "GIT_BRANCH=${gitBranch}" >> /etc/environment
+            	echo "GIT_COMMIT=${gitCommit}" >> /etc/environment
+            	"""
 	 }
    }
    
