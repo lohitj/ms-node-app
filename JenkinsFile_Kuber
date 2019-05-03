@@ -62,48 +62,61 @@ node(label)
    }
    
     if(env.UNIT_TESTING == 'True')
-	{
+   {
         stage("Unit Test")
-		{
+	{
+		container('node') 
+	 	{
 			sh 'npm run test'
 		}
+	}
     }
   
-	if(env.CODE_COVERAGE == 'True')
+if(env.CODE_COVERAGE == 'True')
+{
+    stage("Code Coverage")
 	{
-        stage("Code Coverage")
-		{
+	container('node') 
+	 	{
 			sh 'nyc --check-coverage --lines ${LINE} --functions ${FUNCTION} --branches ${BRANCHES} npm test' // all gating in package.json
 		}
-    }
+	}
+}
    
-    if(env.CODE_QUALITY == 'True')
-	{
+   if(env.CODE_QUALITY == 'True')
+{
         stage("Code Quality")
+	{
+		container('node')
 		{
 			sh 'npm run lint' // .eslint should be changed 
 			sh 'npm run lint-console'
 		}
-    }
-	if(env.SECURITY_TESTING == 'True')
+	}
+}
+if(env.SECURITY_TESTING == 'True')
+{
+     stage("Security Testing")
 	{
-        stage("Security Testing")
+		container('node')
 		{
 		   sh ''' npm audit --parseable | awk -F $'\\t' '{count++}  END{if(count > '${SECURITY_GATING}') exit 1}' '''
 		}
-    }
+	}
+}
         
     
    
-	stage('Create Docker images') {
-		container('docker') {
+stage('Create Docker images') {
+	container('docker') 
+	{
           sh """
             docker login -u lohitjain -p lohitjain1996
             docker build -t namespace/my-image:${gitCommit} .
             docker push namespace/my-image:${gitCommit}
             """
         }
-	}
+}
 
    stage('Dev - Deploy Application'){
         devDeployment("${APP_NAME}-dev", "${MS_NAME}")
