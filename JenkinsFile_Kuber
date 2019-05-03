@@ -21,6 +21,7 @@ def readProperties(){
 def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
+  containerTemplate(name: 'node', image: 'node', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:latest', command: 'cat', ttyEnabled: true)
@@ -41,12 +42,23 @@ node(label)
        env.WORKSPACE = "${workspace}"
 	readProperties()
    }
+   stage('Test') {
+        container('node') {
+          checkout([$class: 'GitSCM', branches: [[name: "*master"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "", url: "https://github.com/lohitj/ms-node-app"]]])
+       env.WORKSPACE = "${workspace}"
+	readProperties()
+        }
+      }
   
-   stage("Install Dependencies"){
-        sh 'npm install -g'
-	sh' npm install -g istanbul'
-        sh 'npm i nyc -g'
-	sh'npm i --package-lock-only'
+   stage("Install Dependencies")
+   {
+   	 container('node') 
+	 {
+        	sh 'npm install -g'
+		sh' npm install -g istanbul'
+        	sh 'npm i nyc -g'
+		sh'npm i --package-lock-only'
+	 }
    }
    
     if(env.UNIT_TESTING == 'True')
