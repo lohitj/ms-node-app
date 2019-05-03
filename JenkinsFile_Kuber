@@ -131,22 +131,30 @@ stage('Create Docker images')
         }
 }
 
-   stage('Dev - Deploy Application'){
+   stage('Dev - Deploy Application')
+   {
         devDeployment("${APP_NAME}-dev", "${MS_NAME}")
    }
    
-   stage('Tagging Image for Testing'){
+   stage('Tagging Image for Testing')
+   {
         openshiftTag(namespace: '$APP_NAME-dev', srcStream: '$MS_NAME', srcTag: 'latest', destStream: '$MS_NAME', destTag: 'test')
    }
    
-   stage('Test - Deploy Application'){
+   stage('Test - Deploy Application')
+   {
         testDeployment("${APP_NAME}-dev", "${APP_NAME}-test", "${MS_NAME}")
    }
 
-   if(env.FUNCTIONAL_TESTING == 'True'){
-        stage('Functional Testing'){
+   if(env.FUNCTIONAL_TESTING == 'True')
+   {
+        stage('Functional Testing')
+	{
+		container('node')
+		{
 			sh 'npm run functional' //Follow this tutorial https://docs.cucumber.io/guides/10-minute-tutorial/
-   		}
+		}   	
+	}
    }
    
 
