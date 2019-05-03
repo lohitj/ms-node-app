@@ -65,7 +65,7 @@ node(label)
         	sh 'npm i nyc -g'
 		sh'npm i --package-lock-only'
 		echo "GIT_BRANCH=${gitBranch}" >> /etc/environment
-        echo "GIT_COMMIT=${gitCommit}" >> /etc/environment
+        	echo "GIT_COMMIT=${gitCommit}" >> /etc/environment
 	 }
    }
    
