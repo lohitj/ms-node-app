@@ -4,6 +4,7 @@
   * It has nearly 10 microservices written in GoLang, SpringBoot, NodeJS
   * Uses MongoDBs, MySQL DBs
 
+yes
 # Steps
 
   * Create 2 projects in Openshift Web Console. One for QA[ms-qa] and another one for Production[ms-prod]
